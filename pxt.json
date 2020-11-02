@@ -3,7 +3,9 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "animation": "github:asesorlgvr/caminando#master"
+        "animation": "github:asesorlgvr/caminando#master",
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0",
+        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1"
     },
     "files": [
         "main.blocks",
