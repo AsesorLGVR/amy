@@ -1,3 +1,33 @@
+scene.onOverlapTile(SpriteKind.Player, sprites.builtin.villager4WalkBack2, function (sprite, location) {
+    if (true) {
+        game.splash("Siéntese, por favor!")
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(45, 18))
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile3, function (sprite, location) {
+    if (game.askForString("¡Buenas tardes! ¿Qué necesita visa o pasaporte?", 4) == "visa") {
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(12, 15))
+        tiles.setWallAt(tiles.getTileLocation(12, 16), false)
+    } else {
+        game.setDialogFrame(sprites.builtin.computer1)
+        game.showLongText("Esta es la oficina de visas. SIGUIENTE!", DialogLayout.Full)
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(12, 15))
+        tiles.setWallAt(tiles.getTileLocation(12, 16), true)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile14, function (sprite, location) {
+    if (game.askForString("¡Buenas días! ", 11) == "buenos dias") {
+        if (game.askForString("¡Buenas días! ", 11) == "buenos dias") {
+        	
+        }
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(12, 15))
+    } else {
+        game.setDialogFrame(sprites.builtin.computer1)
+        game.showLongText("Esta es la oficina de visas. SIGUIENTE!", DialogLayout.Full)
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(12, 15))
+        tiles.setWallAt(tiles.getTileLocation(12, 16), true)
+    }
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     mySprite,
@@ -250,6 +280,20 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile4, function (sprite, location
         tiles.placeOnTile(mySprite, tiles.getTileLocation(6, 19))
     }
 })
+scene.onOverlapTile(SpriteKind.Player, myTiles.transparency16, function (sprite, location) {
+    tiles.setTileAt(tiles.getTileLocation(44, 1), sprites.builtin.largeShelf)
+    tiles.setTileAt(tiles.getTileLocation(44, 6), sprites.builtin.smallShelf1)
+    tiles.setTileAt(tiles.getTileLocation(48, 4), sprites.builtin.computer0)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.greenSwitchUp, function (sprite, location) {
+    if (info.score() >= 1 && game.askForString("¿Qué necesita?", 9) == "pasaporte") {
+        music.baDing.play()
+        tiles.setTileAt(location, sprites.dungeon.greenSwitchDown)
+        game.setDialogFrame(sprites.builtin.computer1)
+        game.showLongText("La curiosidad mató al gato means Curiosity killed the cat. Y ahora un lince ibérico te está buscando para matarte. Ten cuidado.", DialogLayout.Full)
+        tiles.setWallAt(tiles.getTileLocation(3, 19), false)
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile16, function (sprite, location) {
     if (true) {
         game.setDialogFrame(img`
@@ -473,6 +517,19 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile11, function (sprite, locatio
         game.setDialogFrame(sprites.builtin.computer1)
         game.showLongText("Lo siento. Necesita pagar la tasa, decir la contraseña y todos sus documentos en regla.", DialogLayout.Full)
         tiles.placeOnTile(mySprite, tiles.getTileLocation(11, 4))
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile12, function (sprite, location) {
+    if (info.score() >= 1 && game.askForString("¿Qué necesita?", 9) == "pasaporte") {
+        music.baDing.play()
+        tiles.setTileAt(location, sprites.dungeon.floorDark2)
+        game.setDialogFrame(sprites.builtin.computer1)
+        game.showLongText("Aquí tiene su pasaporte. Ya puede solicitar su visa", DialogLayout.Full)
+        info.changeScoreBy(-2)
+    } else {
+        game.setDialogFrame(sprites.builtin.computer1)
+        game.showLongText("Aquí no regalamos pasaportes", DialogLayout.Full)
+        tiles.placeOnTile(mySprite, tiles.getTileLocation(13, 4))
     }
 })
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile17, function (sprite, location) {
@@ -783,6 +840,20 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile20, function (sprite, locatio
         tiles.setTileAt(location, sprites.castle.tileGrass1)
         tiles.placeOnTile(mySprite, tiles.getTileLocation(46, 2))
     }
+})
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile1, function (sprite, location) {
+    game.setDialogFrame(sprites.builtin.computer1)
+    game.showLongText("Deténgase usted no puede estar aquí. Solo personal autorizado. Salga de aquí inmediatamente o la multaré-", DialogLayout.Full)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(5, 6))
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorDark2, function (sprite, location) {
+    tiles.setTileAt(tiles.getTileLocation(44, 18), sprites.builtin.villager4WalkBack2)
+    tiles.setTileAt(tiles.getTileLocation(44, 17), sprites.builtin.computer1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    mySprite.destroy(effects.disintegrate, 500)
+    game.over(false, effects.dissolve)
+    scene.cameraShake(4, 500)
 })
 let movimiento = false
 let mySprite: Sprite = null
